@@ -1,6 +1,7 @@
 <?php
 session_start();
-if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'student') die('Access denied!');
+if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'student')
+    die('Access denied!');
 
 require_once __DIR__ . '/../../config/db.php';
 $pageTitle = 'Submit Assignment';
@@ -34,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $dest = __DIR__ . '/../../uploads/assignments/' . $safe;
                 if (move_uploaded_file($tmp, $dest)) {
                     $rel = '/dams/uploads/assignments/' . $safe;
-                    $stmt = $conn->prepare("INSERT INTO submissions(assignment_id,student_id,file_path,status) VALUES(?,?,?,'Submitted')");
+                    $stmt = $conn->prepare("INSERT INTO submissions(assignment_id,student_id,file_path,status) VALUES(?,?,?,'Pending')");
                     $stmt->bind_param('iis', $assignment_id, $stu['id'], $rel);
                     $msg = $stmt->execute() ? 'Uploaded successfully' : 'DB save failed';
                 } else
