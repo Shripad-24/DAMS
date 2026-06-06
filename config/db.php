@@ -1,5 +1,5 @@
 <?php
-$host = '127.0.0.1';
+$host = 'localhost';
 $user = 'root';     // XAMPP default
 $pass = 'root';        // XAMPP default
 $db = 'dams_db';
